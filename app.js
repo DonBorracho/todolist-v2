@@ -122,8 +122,9 @@ async function main() {
     }
   })
 
-  app.listen(process.env.PORT || 3000, function() {
-    console.log("Server started on port " + listener.address().port);
+  const listenPort = process.env.PORT || 3000;
+  app.listen(listenPort, function() {
+    console.log("Server started on port " + listenPort);
   });
 }
 
