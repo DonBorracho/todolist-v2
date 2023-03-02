@@ -18,7 +18,7 @@ async function main() {
 
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(express.static("public"));
-  
+
   const database = "todolistDB";
   const credential = `${process.env.MONGO_USR}:${process.env.MONGO_PASS}`;
   const url = `mongodb+srv://${credential}@cluster0.nucp5uw.mongodb.net/${database}`;
@@ -122,7 +122,7 @@ async function main() {
     }
   })
 
-  app.listen(3000, function() {
+  app.listen(process.env.PORT || 3000, function() {
     console.log("Server started on port 3000");
   });
 }
