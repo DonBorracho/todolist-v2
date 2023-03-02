@@ -5,6 +5,11 @@ const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js");
 const mongoose = require('mongoose');
 const _ = require('lodash');
+// Include process module
+const process = require('process');
+ 
+// Printing process.env property value
+//  console.log(process.env.password);
 
 main().catch(err => console.log(err));
 async function main() {
@@ -13,8 +18,12 @@ async function main() {
 
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(express.static("public"));
-
-  mongoose.connect("mongodb://127.0.0.1:27017/todolistDB");
+  
+  const database = "todolistDB";
+  const credential = `${process.env.MONGO_USR}:${process.env.MONGO_PASS}`;
+  const url = `mongodb+srv://${credential}@cluster0.nucp5uw.mongodb.net/${database}`;
+  console.log(url);
+  mongoose.connect(url).catch(err => console.log(err));
   
   const itemsSchema = new mongoose.Schema( {
     name: String,
